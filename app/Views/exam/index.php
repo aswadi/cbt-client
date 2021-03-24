@@ -1,5 +1,6 @@
 <?= $this->extend('layout/template') ?>
 
 <?= $this->section('content') ?>
-    <h1>Exam</h1>
+    <h3>Ujian berbasis komputer, UIN Raden Fatah Palembang</h3>
+
 <?= $this->endSection() ?>
