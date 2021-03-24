@@ -1,0 +1,13 @@
+#wrapquestion,#wrapothernumber{
+    border: 1px solid black;
+}
+#wrapothernumber{
+    /* margin-left: 10px; */
+}
+
+
+@media screen and (max-width: 600px) {
+    #wrapquestion,#wrapothernumber{
+        border: none;
+    }
+  }
