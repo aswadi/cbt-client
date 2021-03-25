@@ -8,10 +8,13 @@
     <div class="wrapper">
         <div class="row">
             <div class="col-md-9 pb-2" id="wrapquestion">
-                <div class="number_question">
-                    <span>SOAL NO. 13</span>
+                <div class="head-question pt-1 pb-1">
+                    <div class="number_question ">
+                        <span>SOAL NO.</span> <span class="bg-color no">13</span>
+                    </div>
+                    <div class="time"> <span>SISA WAKTU </span><span class="bg-color time_on">01:30:29</span></div>
                 </div>
-                <div class="time"><span>01:30:29</span></div>
+                
                 <div class="clear"></div>
                 <hr>
                 <div class="question">
@@ -59,8 +62,24 @@
 
             <div class="col-md-3" id="wrapothernumber">
                 <div class="number_other">
-                    <span>NOMOR SOAL</span>
+                    <span>DAFTAR SOAL</span>
                     <hr>
+                    <div class="question_number">
+                        <div class="number">2</div> <div class="number">1</div>
+                        
+                        <div class="number">3</div>
+                        <div class="number">1</div>
+                        <div class="number">2</div>
+                        <div class="number">3</div>
+                        <div class="number">12</div>
+                        <div class="number">332</div>
+                        <div class="number">1</div>
+                        <div class="number">2</div>
+                        <div class="number">3</div>
+                        <div class="number">1</div>
+                        <div class="number">3</div>
+                        <div class="number">1</div> 
+                    </div>
                 </div>
             </div>
 
