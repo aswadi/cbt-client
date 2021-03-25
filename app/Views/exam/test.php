@@ -7,11 +7,13 @@
 
     <div class="wrapper">
         <div class="row">
-            <div class="col-md-9" id="wrapquestion">
+            <div class="col-md-9 pb-2" id="wrapquestion">
                 <div class="number_question">
                     <span>SOAL NO. 13</span>
-                    <hr>
                 </div>
+                <div class="time"><span>01:30:29</span></div>
+                <div class="clear"></div>
+                <hr>
                 <div class="question">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse, voluptatibus. Placeat consectetur, obcaecati a laudantium voluptatem rem, accusantium, consequatur voluptates quod culpa rerum fugit esse doloribus maxime corrupti dicta enim!
                     <hr>
@@ -21,15 +23,17 @@
                         <li>A. dsdw</li>
                         <li>B. dsdw</li>
                         <li>C. dsdw</li>
+                        <li>D. dsdw</li>
                     </ul>
                 </div>
                 <div class="prev-next">
                     <div class="prev">
-                        <span class="btn btn-sm btn-primary" ><i class="fas fa-arrow-circle-left"></i> Sebelumnya</span>
+                        <button class="btn btn-sm btn-primary" ><i class="fas fa-arrow-circle-left"></i> Sebelumnya</button>
                     </div>
                     <div class="next"> 
-                        <span class="btn btn-sm btn-primary" ><i class="fas fa-arrow-circle-right"></i> Selanjutnya</span>
+                        <button class="btn btn-sm btn-primary" ><i class="fas fa-arrow-circle-right"></i> Selanjutnya</button>
                     </div>
+                    <div class="clear"></div>
                     
                 </div>
             </div>
