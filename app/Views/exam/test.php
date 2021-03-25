@@ -25,10 +25,10 @@
                 </div>
                 <div class="prev-next">
                     <div class="prev">
-                        <span class="btn btn-sm btn-primary"><i class="fas fa-arrow-circle-left"></i> Sebelumnya</span>
+                        <span class="btn btn-sm btn-primary" ><i class="fas fa-arrow-circle-left"></i> Sebelumnya</span>
                     </div>
                     <div class="next"> 
-                        <span class="btn btn-sm btn-primary"><i class="fas fa-arrow-circle-right"></i> Selanjutnya</span>
+                        <span class="btn btn-sm btn-primary" ><i class="fas fa-arrow-circle-right"></i> Selanjutnya</span>
                     </div>
                     
                 </div>
