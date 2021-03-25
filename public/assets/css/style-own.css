@@ -1,9 +1,38 @@
 #wrapquestion,#wrapothernumber{
     border: 1px solid black;
 }
-#wrapothernumber{
+.prev, .number_question{
     /* margin-left: 10px; */
+    float: left;
 }
+.next, .time{
+    text-align: right;
+}
+.no, .time_on{
+    padding: 6px;
+    color: white;
+}
+.clear{
+    clear: both;
+}
+.number{
+    background-color: gray;
+    padding: 4px 9px 4px 9px;
+    margin-bottom: 9px;
+    margin-right: 9px;
+    border-radius: 15%;
+    float: left;
+    color: white;
+}
+.number:hover{
+    cursor: pointer;
+}
+.bg-color{
+    background-color: #0F96D3;
+}
+/* .head-question{
+
+} */
 
 
 @media screen and (max-width: 600px) {
