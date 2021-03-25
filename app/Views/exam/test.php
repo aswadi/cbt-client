@@ -23,7 +23,13 @@
                         <li>C. dsdw</li>
                     </ul>
                 </div>
-                <div class="next-prev">
+                <div class="prev-next">
+                    <div class="prev">
+                        <span class="btn btn-sm btn-primary"><i class="fas fa-arrow-circle-left"></i> Sebelumnya</span>
+                    </div>
+                    <div class="next">
+                        <span class="btn btn-sm btn-primary"><i class="fas fa-arrow-circle-right"></i> Selanjutnya</span>
+                    </div>
                     
                 </div>
             </div>
