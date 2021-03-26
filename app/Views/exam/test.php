@@ -28,9 +28,7 @@
                     </div>
                     <div class="text-added">
                         <p>اختر الأجوبة المناسبة للأسئلة التالية</p>   
-                    </div>
-                   
-                    
+                    </div>        
                 </div>
                 <hr>
                 <div class="answer pb-2">
