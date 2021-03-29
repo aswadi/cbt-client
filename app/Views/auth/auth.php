@@ -81,41 +81,44 @@
 <body>
     <div class="container">
         <div class="wraplogin form-signin"  style="text-align:center;">
-            <form>
-                <img class="mb-4" src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+            <form id="#frm-user" method="post">
+                <img class="mb-4" src="assets/img/uin.png" alt="" width="100px" height="100px">
                 <!-- <h1 class="h3 mb-3 fw-normal">Silahkan masuk</h1> -->
                 <p>Silahkan masuk.</p>
 
                 <div class="form-floating">
                 <!-- <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"> -->
-                    <input id="no_tes" type="text" class="form-control" name="no_tes" value="" placeholder="Nomor tes">                                        
-
+                <input id="no_tes" type="text" class="form-control" name="no_tes" value="2005060007" placeholder="Nomor tes">                                        
                 <label for="floatingInput">Nomor tes</label>
                 </div>
                 <br>
                 <label for="">Tanggal lahir</label>
-                
-                <div class="form-floating">
+                <!-- <div class="form-floating"> -->
                     <!-- <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
                     <label for="floatingPassword">Password</label> -->
                     <div class="row">
                         <div class="col-md-4">
-                            <input id="tahun" type="text" class="form-control" name="tahun" value="" placeholder="Tahun">                                        
+                            <div class="form-floating">
+                                <input id="tahun" type="text" class="form-control" name="tahun" value="2002" placeholder="Tahun">                                        
+                                <label for="floatingInput">Tahun</label>
+                            </div>
                         </div>
                         <div class="col-md-4">
-                            <input id="bulan" type="text" class="form-control" name="tahun" value="" placeholder="Bulan">                                        
-
+                            <div class="form-floating">
+                                <input id="bulan" type="text" class="form-control" name="bulan" value="07" placeholder="Bulan">                                        
+                                <label for="floatingInput">Bulan</label>
+                            </div>
                         </div>
                         <div class="col-md-4">
-                            <input id="tanggal" type="text" class="form-control" name="tahun" value="" placeholder="Tanggal">                                        
-
+                            <div class="form-floating">
+                                <input id="tanggal" type="text" class="form-control" name="tanggal" value="13" placeholder="Tanggal">                                        
+                                <label for="floatingInput">Tanggal</label>
+                            </div>
                         </div>
                     </div>
-                </div>
+                <!-- </div> -->
                 <br>
-
-                 
-                <button class="w-100 btn btn-lg btn-success" type="submit">Masuk</button>
+                <button  class="w-100 btn btn-lg btn-success" id="masuk" type="button">Masuk</button>
                 <p class="mt-5 mb-3 text-muted">© PUSTIPD Rafa @ 2021</p>
             </form>
         </div>
@@ -123,6 +126,50 @@
     </div>
     
     <div id="particles"></div>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script>
+        $("#masuk").click(function() { 
+                    var no_tes = $('#no_tes').val();
+                    var tahun = $('#tahun').val();
+                    var bulan = $('#bulan').val();
+                    var tanggal = $('#tanggal').val(); 
+                    // console.log(no_tes);
+                    $('#masuk').prop('disabled', true);
+
+                    $.ajax({
+                        url: "<?= site_url('auth/authCheck') ?>",
+                        type: "POST",
+                        data: {username : no_tes,
+                               tahun : tahun,
+                               bulan : bulan,
+                               tanggal : tanggal},
+                        dataType: "JSON",
+                        success: function(data) {
+                            $('#masuk').prop('disabled', false);
+                            // console.log(data.status);
+                            
+                            if (data.status == true) {
+                                // swal("Berhasil", "Anda akan di arahkan dalam..", "success");
+                                swal({
+                                title: "Berhasil",
+                                text: "Anda akan di arahkan dalam 3 detik",
+                                icon: "success",
+                                buttons: false
+                                });
+                                setTimeout(function(){ 
+                                    window.location.href = "/exam/test";
+                                }, 3000); //3000 miliseconds alias 3 detik
+
+                            }
+                            // location.reload();
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            alert('Error select data');
+                        }
+                    }); 
+        });
+    </script>
 
 
     <script>
