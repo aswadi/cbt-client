@@ -99,19 +99,49 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-floating">
+
                                 <input id="tahun" type="text" class="form-control" name="tahun" value="2002" placeholder="Tahun">                                        
-                                <label for="floatingInput">Tahun</label>
+                            <label for="floatingInput">Tahun</label>
+                                
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-floating">
-                                <input id="bulan" type="text" class="form-control" name="bulan" value="07" placeholder="Bulan">                                        
+                                <!-- <input id="bulan" type="text" class="form-control" name="bulan" value="07" placeholder="Bulan">                                         -->
+                                <select id="bulan" class="form-control" >
+                                    <option selected>Pilih</option>
+                                    <?php 
+                                        for ($i=1; $i <= 12; $i++) {  
+                                            if (strlen($i) < 2) {
+                                                $bulan = '0'.$i;
+                                            }else{
+                                                $bulan = $i;
+                                            }
+                                            echo '<option value="'.$bulan.'">'.$bulan.'</option>';
+                                        }
+                                    ?>
+                                    
+                                </select>
                                 <label for="floatingInput">Bulan</label>
+
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-floating">
-                                <input id="tanggal" type="text" class="form-control" name="tanggal" value="13" placeholder="Tanggal">                                        
+                                <!-- <input id="tanggal" type="text" class="form-control" name="tanggal" value="13" placeholder="Tanggal">                                         -->
+                                <select id="tanggal" class="form-control" >
+                                    <option selected>Pilih</option>
+                                    <?php 
+                                        for ($i=1; $i <= 31; $i++) {  
+                                            if (strlen($i) < 2) {
+                                                $tanggal = '0'.$i;
+                                            }else{
+                                                $tanggal = $i;
+                                            }
+                                            echo '<option value="'.$tanggal.'">'.$tanggal.'</option>';
+                                        }
+                                    ?>
+                                </select>
                                 <label for="floatingInput">Tanggal</label>
                             </div>
                         </div>
@@ -153,14 +183,21 @@
                                 // swal("Berhasil", "Anda akan di arahkan dalam..", "success");
                                 swal({
                                 title: "Berhasil",
-                                text: "Anda akan di arahkan dalam 3 detik",
+                                text: data.message,
                                 icon: "success",
                                 buttons: false
                                 });
                                 setTimeout(function(){ 
                                     window.location.href = "/exam/test";
-                                }, 3000); //3000 miliseconds alias 3 detik
+                                }, 2000); //3000 miliseconds alias 3 detik
 
+                            }else{
+                                swal({
+                                title: "Opps",
+                                text: data.message,
+                                icon: "warning",
+                                buttons: false
+                                });
                             }
                             // location.reload();
                         },
