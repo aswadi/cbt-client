@@ -188,7 +188,7 @@
                                 buttons: false
                                 });
                                 setTimeout(function(){ 
-                                    window.location.href = "/exam/";
+                                    window.location.href = "/exam";
                                 }, 2000); //2000 miliseconds alias 2 detik
 
                             }else{

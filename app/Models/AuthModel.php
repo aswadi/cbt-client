@@ -12,10 +12,7 @@ class AuthModel extends Model
     public function getUser($register)
     { 
         return $this->asArray()
-                    ->where(['kodeRegistrasi' => $register,
-                            //  'kodeValidasi' => $validate,
-                            //  'validateBy is not' => null,
-                             ])
+                    ->where(['kodeRegistrasi' => $register])
                     ->first();
     }
     public function getUserValidate($register, $validate)
@@ -23,7 +20,6 @@ class AuthModel extends Model
         return $this->asArray()
                     ->where(['kodeRegistrasi' => $register,
                              'kodeValidasi' => $validate,
-                            //  'validateBy is not' => null,
                              ])
                     ->first();
     }
