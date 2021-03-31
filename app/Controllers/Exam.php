@@ -9,12 +9,15 @@ class Exam extends BaseController
 	public function __construct()
 	{
 		$this->examModel = new ExamModel();
+
 	}
 
 	public function index()
 	{
+		$session = session();
+
         $data['title'] = 'CBT Raden Fatah';
-		$data['data_peserta'] = $this->examModel->getUser('2005060007');
+		$data['data_peserta'] = $this->examModel->getUser($session->username);
 		// echo '<pre>';
 		// print_r($data['data_peserta']);
 		// echo '</pre>';

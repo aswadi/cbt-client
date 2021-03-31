@@ -14,10 +14,10 @@
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
         </div>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item">Nama : <?= $data_peserta['nama'];?></li>
-            <li class="list-group-item">No tes : <?= $data_peserta['kodeRegistrasi'];?></li>
-            <li class="list-group-item">Tempat lahir : <?= $data_peserta['tempatLahir'];?></li>
-            <li class="list-group-item">Tanggal lahir : <?= $data_peserta['tanggalLahir'];?></li>
+            <li class="list-group-item">Nama : <?= $data_peserta[0]->nama;?></li>
+            <li class="list-group-item">No tes : <?= $data_peserta[0]->kodeRegistrasi;?></li>
+            <li class="list-group-item">Tempat lahir : <?= $data_peserta[0]->tempatLahir;?></li>
+            <li class="list-group-item">Tanggal lahir : <?= $data_peserta[0]->tanggalLahir;?></li>
         </ul>
         <!-- <div class="card-body">
             <a href="#" class="card-link">Card link</a>
@@ -30,15 +30,15 @@
 
     </div>
     <div class="col-md-6">
-        <!-- <?php print_r($data_peserta);?> -->
+        <!-- <?php print_r($_SESSION);?> -->
         <div  class="alert alert-success info_ujian" role="alert">
             Info ! Lorem ipsum dolor sit, amet consectetur adipisicing elit. A 
         </div>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item">Sisa waktu : <?= $data_peserta['sisaWaktu'] / 60;?> menit</li>
-            <li class="list-group-item">Jam : <?= $data_peserta['sesiJam'];?></li>
-            <li class="list-group-item">Tanggal Ujian : <?= $data_peserta['tanggalUjian'];?></li>
-            <li class="list-group-item">Ruang Ujian : <?= $data_peserta['ruangan'];?></li>
+            <li class="list-group-item">Sisa waktu : <?= $data_peserta[0]->sisaWaktu / 60;?> menit</li>
+            <li class="list-group-item">Jam : <?= $data_peserta[0]->sesiJam;?></li>
+            <li class="list-group-item">Tanggal Ujian : <?= $data_peserta[0]->tanggalUjian;?></li>
+            <li class="list-group-item">Ruang Ujian : <?= $data_peserta[0]->ruangan;?></li>
         </ul>
         <br>
 

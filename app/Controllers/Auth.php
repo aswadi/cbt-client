@@ -10,6 +10,7 @@ class Auth extends BaseController
 	{
 		helper('form');
 		$this->authModel = new AuthModel();
+
 	}
 
 	public function index()
@@ -30,18 +31,34 @@ class Auth extends BaseController
 			
 			$kodeValidasi = $this->request->getPost("tahun") .'-'.$this->request->getPost("bulan") .'-'.$this->request->getPost("tanggal");
 			$register = $this->request->getPost("username"); 
-
-            if (!$this->authModel->getUser($register)) {
+			$data = $this->authModel->getUser($register);
+            if (!$data) {
                 echo json_encode(array("status" => false, "message" => "kode tidak terdaftar", "data" => $register));
             }else if(!$this->authModel->getUserValidate($register,$kodeValidasi)){
                 echo json_encode(array("status" => false, "message" => "tahun/bulan/tanggal lahir salah" , "data" => $register));
             }else if(!$this->authModel->getUserValidateBy($register,$kodeValidasi)){
                 echo json_encode(array("status" => false, "message" => "user anda belum di validasi" , "data" => $register));
             }else{
+				$session = session();
+
+				$newdata = [
+					'username'  => $data['kodeRegistrasi'],
+					'log_in'	=> true
+				];
+				
+				$session->set($newdata);
+
                 echo json_encode(array("status" => true, "message" => "berhasil, mohon tunggu anda akan di arahkan ke laman ujian." , "data" => $register));
 			}
         }
 	}
+
+	public function logout()
+    {
+        $session = session();
+        $session->destroy();
+        return redirect()->to('/');
+    }
 
     
 }
