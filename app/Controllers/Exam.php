@@ -26,9 +26,13 @@ class Exam extends BaseController
 		return view('exam/index', $data);
 	}
 
-    public function test()
+    public function test($no)
 	{
+		$session = session();
         $data['title'] = 'CBT Raden Fatah';
+		$data['question_number'] = $this->examModel->getQuestinNumber($session->id_peserta);
+		$data['question_id'] = $this->examModel->getQuestinId($session->id_peserta);
+		$data['question'] = $this->examModel->getQuestin($no);
 		return view('exam/test', $data);
 	}
 	public function simulation()

@@ -83,7 +83,8 @@
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form> -->
         <div class="d-flex">
-          <span style="color:white">Name</span>
+        <p>Page rendered in {elapsed_time} seconds </p>
+          <a href="/auth/logout"><span style="color:white"> Logout</span></a>
         </div>
       </div>
     </div>

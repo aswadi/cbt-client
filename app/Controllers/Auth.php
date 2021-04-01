@@ -43,6 +43,7 @@ class Auth extends BaseController
 
 				$newdata = [
 					'username'  => $data['kodeRegistrasi'],
+					'id_peserta'  => $data['id'],
 					'log_in'	=> true
 				];
 				
