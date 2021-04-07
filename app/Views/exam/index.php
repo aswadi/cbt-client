@@ -30,12 +30,18 @@
 
     </div>
     <div class="col-md-6">
-        <!-- <?php print_r($_SESSION);?> -->
+        <?php 
+            // print_r($_SESSION);
+            $seconds = $data_peserta[0]->sisaWaktu;
+            $hours = floor($seconds / 3600);
+            $mins = floor($seconds / 60 % 60);
+            $secs = floor($seconds % 60);
+        ?>
         <div  class="alert alert-success info_ujian" role="alert">
             Info ! Lorem ipsum dolor sit, amet consectetur adipisicing elit. A 
         </div>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item">Sisa waktu : <?= $data_peserta[0]->sisaWaktu / 60;?> menit</li>
+            <li class="list-group-item">Sisa waktu : <?= sprintf('%02d:%02d:%02d', $hours, $mins, $secs);?></li>
             <li class="list-group-item">Jam : <?= $data_peserta[0]->sesiJam;?></li>
             <li class="list-group-item">Tanggal Ujian : <?= $data_peserta[0]->tanggalUjian;?></li>
             <li class="list-group-item">Ruang Ujian : <?= $data_peserta[0]->ruangan;?></li>

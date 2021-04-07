@@ -10,10 +10,10 @@
 
     <div class="wrapper">
         <div class="row">
-            <div class="col-md-9 pb-2" id="wrapquestion">
+            <div class="col-md-9 pb-2" id="wrapquestion" style="position: relative;">
                 <div class="head-question pt-1 pb-1">
-                    <div class="number_question ">
-                        <span>SOAL NO.</span> <span class="bg-color no"><?= $question[0]->noUrut;?></span>
+                    <div class="number_question">
+                        <span>SOAL NO.</span> <span class="bg-color no"><span id="num_change"><?= $question[0]->noUrut;?></span></span>
                         <input type="hidden" name="no_soal" id="no_soal" value="<?= $question[0]->noUrut;?>">
                     </div>
                     <div class="time"> <span>SISA WAKTU </span><span id="timer" class="bg-color time_on">Check time..</span></div>
@@ -21,45 +21,72 @@
                 
                 <div class="clear"></div>
                 <hr>
-                <div class="question">
-                <?php
-                // echo '<pre>';
-                // print_r($question);
-                // echo '<pre>';
-                // echo '<pre>';
-                // print_r($data_peserta);
-                // echo '<pre>';
+                <div class="wrap_question_answer">
+                    <div class="question_answer "  style="margin-bottom: 25px;">
+                        <div class="question">
+                        <?php
+                        // echo '<pre>';
+                        // print_r($question);
+                        // echo '<pre>';
+                        // echo '<pre>';
+                        // print_r($data_peserta);
+                        // echo '<pre>';
 
-                ?>
-                    <div class="text">
-                        <?= $question[0]->teks;?> 
+                        ?>
+                            <div class="text">
+                                <?= $question[0]->teks;?> 
+                            </div>
+                            <div class="text-added">
+                                <?= $question[0]->teksTambahan;?>   
+                            </div>        
+                        </div>
+                        <hr>
+                        <div class="answer pb-2"> 
+                            <p>Jawaban</p>
+                            <input type="radio" id="pilihan1" class="value_answer" name="answer" value="1">
+                            <label for="male"><?= $question[0]->pilihan1;?></label><br>
+                            <input type="radio" id="pilihan2" class="value_answer" name="answer" value="2">
+                            <label for="female"><?= $question[0]->pilihan2;?></label><br>
+                            <input type="radio" id="pilihan3" class="value_answer" name="answer" value="3">
+                            <label for="other"><?= $question[0]->pilihan3;?></label><br>
+                            <input type="radio" id="pilihan4" class="value_answer" name="answer" value="4">
+                            <label for="other"><?= $question[0]->pilihan4;?></label>
+                        </div>
                     </div>
-                    <div class="text-added">
-                        <?= $question[0]->teksTambahan;?>   
-                    </div>        
                 </div>
-                <hr>
-                <div class="answer pb-2"> 
-                    <p>Jawaban</p>
-                    <input type="radio" id="pilihan1" class="value_answer" name="answer" value="1">
-                    <label for="male"><?= $question[0]->pilihan1;?></label><br>
-                    <input type="radio" id="pilihan2" class="value_answer" name="answer" value="2">
-                    <label for="female"><?= $question[0]->pilihan2;?></label><br>
-                    <input type="radio" id="pilihan3" class="value_answer" name="answer" value="3">
-                    <label for="other"><?= $question[0]->pilihan3;?></label><br>
-                    <input type="radio" id="pilihan4" class="value_answer" name="answer" value="4">
-                    <label for="other"><?= $question[0]->pilihan4;?></label>
-                </div>
-                <div class="prev-next">
-                    <div class="prev">
-                        <button class="btn btn-sm btn-success" ><i class="fas fa-arrow-circle-left"></i> Sebelumnya</button>
+                <!-- <div class="warp-prev-next" style="position: absolute;bottom: 0;">
+                    <div class="prev-next">
+                        <div class="prev">
+                            <button class="btn btn-sm btn-success" id="prev" ><i class="fas fa-arrow-circle-left"></i> Sebelumnya</button>
+                        </div>
+                        <div class="next"> 
+                            <button class="btn btn-sm btn-success" id="next"><i class="fas fa-arrow-circle-right"></i> Selanjutnya</button>
+                        </div>
+                        <div class="clear"></div>
+                        
                     </div>
-                    <div class="next"> 
-                        <button class="btn btn-sm btn-success" id="next"><i class="fas fa-arrow-circle-right"></i> Selanjutnya</button>
+                </div> -->
+                <div class="warp-prev-next" style="position: absolute;bottom: 0; width: 98%; margin-bottom: 8px;">
+                    <div class="prev-next" >
+                        <table style="width: 100%;">
+                            <tr>
+                                <td>
+                                    <div class="prev">
+                                        <button class="btn btn-sm btn-success" id="prev" ><i class="fas fa-arrow-circle-left"></i> Sebelumnya</button>
+                                    </div>
+                                </td>
+                                <td>
+                                <div class="next"> 
+                                    <button class="btn btn-sm btn-success" id="next" style="margin-right: 20px;"><i class="fas fa-arrow-circle-right"></i> Selanjutnya</button>
+                                </div>
+                                </td>
+                            </tr>
+                        
+                        </table>     
                     </div>
-                    <div class="clear"></div>
-                    
                 </div>
+                
+                
             </div>
 
             <div class="col-md-3" id="wrapothernumber">
@@ -83,16 +110,50 @@
     <script src="/assets/js/sweetalert.js"></script>
 
     <script>
-        $( "#next" ).click(function() {
-            var no = parseInt($( "#no_soal" ).val()) + 1; 
 
+        function loadnextprev(nextprev){
+
+            $( ".question_answer").remove();
+            $( "#num_change").remove();
+
+            if (nextprev == 'next') {
+                var no = parseInt($( "#no_soal" ).val()) + 1; 
+            }else{
+                var no = parseInt($( "#no_soal" ).val()) - 1; 
+            }
+
+            
             $.ajax({
                 url: "<?= site_url('exam/question_load/') ?>" + no,
                 type: "POST",
                 data: {},
                 dataType: "JSON",
                 success: function(data) { 
-                    console.log(data.question);
+                    // console.log(data);
+                    $('#no_soal').val(no)
+                    // console.log(data.question[0].teks);
+                    if (data.question[0].teksTambahan != null) {
+                        var tambahan = data.question[0].teksTambahan;
+                    }else{
+                        var tambahan = '';
+                    }
+                    $(".no").append('<span id="num_change">'+no+'</span>');
+
+                    $(".wrap_question_answer").append('<div class="question_answer" style="margin-bottom: 25px;">'+
+                        '<div class="question">'+ 
+                            '<div class="text">'+data.question[0].teks+'</div><div class="text-added">'+tambahan+'</div>'+       
+                        '</div><hr>'+
+                        '<div class="answer pb-2">  <p>Jawaban</p>'+
+                            '<input type="radio" id="pilihan1" class="value_answer" name="answer" value="1">'+
+                           ' <label for="male"> '+data.question[0].pilihan1+'</label><br>'+
+                            '<input type="radio" id="pilihan2" class="value_answer" name="answer" value="2">'+
+                            '<label for="female"> '+data.question[0].pilihan2+'</label><br>'+
+                            '<input type="radio" id="pilihan3" class="value_answer" name="answer" value="3">'+
+                            '<label for="other"> '+data.question[0].pilihan3+'</label><br>'+
+                            '<input type="radio" id="pilihan4" class="value_answer" name="answer" value="4">'+
+                           ' <label for="other"> '+data.question[0].pilihan4+'</label>'+
+                        '</div> </div>');
+                    // console.log(data.question);
                     // location.reload();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
@@ -105,14 +166,24 @@
                         });
                 }
             }); 
-        })
+
+        }
+
+        $( "#next" ).click(function(){
+            loadnextprev('next');
+        
+        });
+
+        $("#prev").click(function() {
+            loadnextprev('prev');
+        });
          
         var count = <?= $data_peserta[0]->sisaWaktu?>;
         // var count = 500;
 
         var counter = setInterval(timer, 1000); //10 will  run it every 100th of a second
         $.session.set('concheck', 'up');
-        console.log($.session.get('concheck'));
+        // console.log($.session.get('concheck'));
 
         function timer()
         {
