@@ -33,7 +33,7 @@ class Auth extends BaseController
 			$register = $this->request->getPost("username"); 
 			$data = $this->authModel->getUser($register);
             if (!$data) {
-                echo json_encode(array("status" => false, "message" => "kode tidak terdaftar", "data" => $register));
+                echo json_encode(array("status" => false, "message" => "kode registrasi tidak terdaftar", "data" => $register));
             }else if(!$this->authModel->getUserValidate($register,$kodeValidasi)){
                 echo json_encode(array("status" => false, "message" => "tahun/bulan/tanggal lahir salah" , "data" => $register));
             }else if(!$this->authModel->getUserValidateBy($register,$kodeValidasi)){

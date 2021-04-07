@@ -34,6 +34,8 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Auth::index');
 $routes->get('/exam', 'Exam::index',['filter' => 'auth']);
+$routes->get('/exam/test', 'Exam::test/1',['filter' => 'auth']);
+
 // $routes->get('/exam/test', 'Exam::test',['filter' => 'auth']);
 $routes->get('/exam/(:any)', 'Exam::$1',['filter' => 'auth']);
 

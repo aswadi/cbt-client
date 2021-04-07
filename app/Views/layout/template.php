@@ -53,6 +53,9 @@
 
     <!-- Custom styles for this template -->
     <link href="sticky-footer-navbar.css" rel="stylesheet">
+
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/jquery.session.js"></script>
   </head>
 
   <body class="d-flex flex-column h-100">
@@ -104,7 +107,7 @@
     <span class="text-muted">Develop By PUSTIPD @ 2021.</span>
   </div>
 </footer>
-<script src="/assets/js/jquery.min.js"></script>
+
 
 
 <script>

@@ -14,21 +14,25 @@
                 <div class="head-question pt-1 pb-1">
                     <div class="number_question ">
                         <span>SOAL NO.</span> <span class="bg-color no"><?= $question[0]->noUrut;?></span>
+                        <input type="hidden" name="no_soal" id="no_soal" value="<?= $question[0]->noUrut;?>">
                     </div>
-                    <div class="time"> <span>SISA WAKTU </span><span id="timer" class="bg-color time_on">01:30:29</span></div>
+                    <div class="time"> <span>SISA WAKTU </span><span id="timer" class="bg-color time_on">Check time..</span></div>
                 </div>
                 
                 <div class="clear"></div>
                 <hr>
                 <div class="question">
+                <?php
+                // echo '<pre>';
+                // print_r($question);
+                // echo '<pre>';
+                // echo '<pre>';
+                // print_r($data_peserta);
+                // echo '<pre>';
+
+                ?>
                     <div class="text">
-                        <?= $question[0]->teks;?>
-                        <!-- <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse, voluptatibus. Placeat consectetur, obcaecati a laudantium voluptatem rem, accusantium, consequatur voluptates quod culpa rerum fugit esse doloribus maxime corrupti dicta enim!
-                        </p>
-                        <p>
-                        للترويح عن النفس
-                        </p>
-                        <img src="/assets/img/exam.jpg" alt="" srcset="" width="200px"> -->
+                        <?= $question[0]->teks;?> 
                     </div>
                     <div class="text-added">
                         <?= $question[0]->teksTambahan;?>   
@@ -51,7 +55,7 @@
                         <button class="btn btn-sm btn-success" ><i class="fas fa-arrow-circle-left"></i> Sebelumnya</button>
                     </div>
                     <div class="next"> 
-                        <button class="btn btn-sm btn-success" ><i class="fas fa-arrow-circle-right"></i> Selanjutnya</button>
+                        <button class="btn btn-sm btn-success" id="next"><i class="fas fa-arrow-circle-right"></i> Selanjutnya</button>
                     </div>
                     <div class="clear"></div>
                     
@@ -60,7 +64,7 @@
 
             <div class="col-md-3" id="wrapothernumber">
                 <div class="number_other">
-                    <span>DAFTAR SOAL</span>
+                    <span>DAFTAR SOAL </span>
                     <hr>
                     <div class="question_number">
                     <?php foreach ($question_number as $key => $value) { ?>
@@ -75,11 +79,40 @@
 
         </div>
     </div>
+    <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+    <script src="/assets/js/sweetalert.js"></script>
+
     <script>
+        $( "#next" ).click(function() {
+            var no = parseInt($( "#no_soal" ).val()) + 1; 
+
+            $.ajax({
+                url: "<?= site_url('exam/question_load/') ?>" + no,
+                type: "POST",
+                data: {},
+                dataType: "JSON",
+                success: function(data) { 
+                    console.log(data.question);
+                    // location.reload();
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    $.session.set('concheck', 'break');
+                    swal({
+                        title: "Opps",
+                        text: "Opps server tidak terhubung, mencoba menghubungi server..",
+                        icon: "warning",
+                        buttons: false
+                        });
+                }
+            }); 
+        })
          
-        var count = 3000;
+        var count = <?= $data_peserta[0]->sisaWaktu?>;
+        // var count = 500;
 
         var counter = setInterval(timer, 1000); //10 will  run it every 100th of a second
+        $.session.set('concheck', 'up');
+        console.log($.session.get('concheck'));
 
         function timer()
         {
@@ -89,6 +122,39 @@
                 return;
             }
             count--;
+            
+            $.ajax({
+                url: "<?= site_url('exam/updateTime') ?>",
+                type: "POST",
+                data: {time : count,
+                        },
+                dataType: "JSON",
+                success: function(data) { 
+                    if (data.status == true) { 
+                        if ($.session.get('concheck') == 'break') {
+                            swal.close();
+                        } 
+                    }else{
+                        // update gagal
+                        swal({
+                        title: "Opps",
+                        text: data.message,
+                        icon: "warning",
+                        buttons: false
+                        });
+                    }
+                    // location.reload();
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    $.session.set('concheck', 'break');
+                    swal({
+                        title: "Opps",
+                        text: "Opps server tidak terhubung, mencoba menghubungi server..",
+                        icon: "warning",
+                        buttons: false
+                        });
+                }
+            }); 
 
             var sec_num = count; 
             var hours   = Math.floor(sec_num / 3600);

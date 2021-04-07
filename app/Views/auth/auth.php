@@ -88,7 +88,7 @@
 
                 <div class="form-floating">
                 <!-- <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"> -->
-                <input id="no_tes" type="text" class="form-control" name="no_tes" value="2005060007" placeholder="Nomor tes">                                        
+                <input id="no_tes" type="text" class="form-control" name="no_tes" value="2005060216" placeholder="Nomor tes">                                        
                 <label for="floatingInput">Nomor tes</label>
                 </div>
                 <br>
@@ -109,7 +109,8 @@
                             <div class="form-floating">
                                 <!-- <input id="bulan" type="text" class="form-control" name="bulan" value="07" placeholder="Bulan">                                         -->
                                 <select id="bulan" class="form-control" >
-                                    <option selected>Pilih</option>
+                                    <option >Pilih</option>
+                                    <option selected value="03">03</option>
                                     <?php 
                                         for ($i=1; $i <= 12; $i++) {  
                                             if (strlen($i) < 2) {
@@ -130,7 +131,9 @@
                             <div class="form-floating">
                                 <!-- <input id="tanggal" type="text" class="form-control" name="tanggal" value="13" placeholder="Tanggal">                                         -->
                                 <select id="tanggal" class="form-control" >
-                                    <option selected>Pilih</option>
+                                    <option >Pilih</option>
+                                    <option selected value="20">20</option>
+
                                     <?php 
                                         for ($i=1; $i <= 31; $i++) {  
                                             if (strlen($i) < 2) {
@@ -156,7 +159,8 @@
     </div>
     
     <div id="particles"></div>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+    <script src="/assets/js/sweetalert.js"></script>
 
     <script>
         $("#masuk").click(function() { 
