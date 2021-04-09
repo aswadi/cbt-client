@@ -21,6 +21,16 @@ class ExamModel extends Model
         $query   = $builder->getWhere(['idPeserta' => $register])->getResult(); 
         return $query;
     }
+    public function getQuestinNumberLast($register)
+    {  
+        $builder = $this->db->table('tabel_jawaban_peserta'); 
+        $builder->select('noUrut');
+        $query   = $builder->orderBy('noUrut','DESC'); 
+        $query   = $builder->limit(1); 
+        $query   = $builder->getWhere(['idPeserta' => $register])->getResult(); 
+
+        return $query;
+    }
     public function getQuestinId($register)
     {  
         $builder = $this->db->table('tabel_jawaban_peserta'); 
@@ -43,6 +53,13 @@ class ExamModel extends Model
     {  
         $builder = $this->db->table('data_peserta'); 
         $builder->set('sisaWaktu', $time);
+        $builder->where('kodeRegistrasi', $register);
+        return $builder->update(); 
+    }
+    public function updateFinish($register)
+    {  
+        $builder = $this->db->table('data_peserta'); 
+        $builder->set('selesai', 1);
         $builder->where('kodeRegistrasi', $register);
         return $builder->update(); 
     }

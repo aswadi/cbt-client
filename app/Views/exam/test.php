@@ -94,12 +94,17 @@
                     <span>DAFTAR SOAL </span>
                     <hr>
                     <div class="question_number">
-                    <?php foreach ($question_number as $key => $value) { ?>
-                        <div class="number"><?= $value->noUrut; ?></div>     
-                    <?php } ?> 
+                    <?php foreach ($question_number as $key => $value) {
+                        
+                        if ($value->noUrut == $no_aktif) { ?>
+                            <div class="number <?= $value->noUrut; ?> no_aktif" data-no="<?= $value->noUrut; ?>"><?= $value->noUrut; ?></div>   
+                        <?php }else {?>
+                        <div class="number <?= $value->noUrut; ?>" data-no="<?= $value->noUrut; ?>"><?= $value->noUrut; ?></div>     
+                    <?php } 
+                    } ?> 
                     </div>
                     <div class="wrap_selesai"> 
-                        <button class="btn btn-sm btn-warning" ><i class="fas fa-check-circle"></i> Selesai Ujian</button>
+                        <button class="btn btn-sm btn-warning" id="selesai"><i class="fas fa-check-circle"></i> Selesai Ujian</button>
                     </div>
                 </div>
             </div>
@@ -111,17 +116,47 @@
 
     <script>
 
-        function loadnextprev(nextprev){
-
+        var selesai = <?= $data_peserta[0]->selesai;?>;
+        $(document).ready(function() {
+            if (selesai == 1) {
+                swal({
+                        title: "Opps",
+                        text: "Opps ujian Anda telah selesai..",
+                        icon: "warning",
+                        buttons: false
+                        });
+                setTimeout(function(){ 
+                            window.location.href = "/exam";
+                        }, 1000);
+            }
+        });
+        function loadquestion(no_load){
             $( ".question_answer").remove();
             $( "#num_change").remove();
 
-            if (nextprev == 'next') {
-                var no = parseInt($( "#no_soal" ).val()) + 1; 
+            if (no_load == 'next') {
+                if (parseInt($( "#no_soal" ).val()) == <?= $number_last[0]->noUrut; ?>) {
+                    var no = 1;
+                    $( ".no_aktif" ).removeClass( "no_aktif");
+                    $( "."+no+"" ).addClass( "no_aktif" );
+                }else{
+                    var no = parseInt($( "#no_soal" ).val()) + 1; 
+                    $( ".no_aktif" ).removeClass( "no_aktif");
+                    $( "."+no+"" ).addClass( "no_aktif" );
+                }
+            }else if (no_load == 'prev'){
+                if (parseInt($( "#no_soal" ).val()) == 1) {
+                    var no = <?= $number_last[0]->noUrut; ?>;
+                    $( ".no_aktif" ).removeClass( "no_aktif");
+                    $( "."+no+"" ).addClass( "no_aktif" );
+                }else{
+                    var no = parseInt($( "#no_soal" ).val()) - 1; 
+                    $( ".no_aktif" ).removeClass( "no_aktif");
+                    $( "."+no+"" ).addClass( "no_aktif" );
+                }
             }else{
-                var no = parseInt($( "#no_soal" ).val()) - 1; 
+                var no = no_load; 
             }
-
             
             $.ajax({
                 url: "<?= site_url('exam/question_load/') ?>" + no,
@@ -147,9 +182,9 @@
                             '<input type="radio" id="pilihan1" class="value_answer" name="answer" value="1">'+
                            ' <label for="male"> '+data.question[0].pilihan1+'</label><br>'+
                             '<input type="radio" id="pilihan2" class="value_answer" name="answer" value="2">'+
-                            '<label for="female"> '+data.question[0].pilihan2+'</label><br>'+
+                            ' <label for="female"> '+data.question[0].pilihan2+'</label><br>'+
                             '<input type="radio" id="pilihan3" class="value_answer" name="answer" value="3">'+
-                            '<label for="other"> '+data.question[0].pilihan3+'</label><br>'+
+                            ' <label for="other"> '+data.question[0].pilihan3+'</label><br>'+
                             '<input type="radio" id="pilihan4" class="value_answer" name="answer" value="4">'+
                            ' <label for="other"> '+data.question[0].pilihan4+'</label>'+
                         '</div> </div>');
@@ -170,26 +205,90 @@
         }
 
         $( "#next" ).click(function(){
-            loadnextprev('next');
-        
+            loadquestion('next');
         });
 
         $("#prev").click(function() {
-            loadnextprev('prev');
+            loadquestion('prev');
+        });
+
+        $("#selesai").click(function() { 
+            swal({
+            title: "Anda yakin ingin selesai?",
+            text: 'Anda tidak bisa mengulangi ujian kembali!', 
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    update_finish();
+                }  
+            });
+        });
+
+        $(".number").click(function() { 
+            var no_change = $(this).attr("data-no") 
+            $( ".no_aktif" ).removeClass( "no_aktif");
+            $( "."+no_change+"" ).addClass( "no_aktif" );
+            loadquestion(no_change);
         });
          
         var count = <?= $data_peserta[0]->sisaWaktu?>;
-        // var count = 500;
+        // var count = 60;
 
         var counter = setInterval(timer, 1000); //10 will  run it every 100th of a second
-        $.session.set('concheck', 'up');
-        // console.log($.session.get('concheck'));
+        $.session.set('concheck', 'up'); 
+
+        function update_finish()
+        { 
+            $.ajax({
+                url: "<?= site_url('exam/updateFinish') ?>",
+                type: "POST",
+                data: {time : count,
+                        },
+                dataType: "JSON",
+                success: function(data) { 
+                    if (data.status == true) { 
+                        swal({
+                        title: "Berhasil",
+                        text: data.message,
+                        icon: "success",
+                        buttons: false
+                        });
+                        setTimeout(function(){ 
+                            window.location.href = "/exam";
+                        }, 1000);
+                    }else{
+                        // update gagal
+                        swal({
+                        title: "Berhasil",
+                        text: data.message,
+                        icon: "success",
+                        buttons: false
+                        });
+                    }
+                    // location.reload();
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    $.session.set('concheck', 'break');
+                    swal({
+                        title: "Opps",
+                        text: "Opps server tidak terhubung, mencoba menghubungi server..",
+                        icon: "warning",
+                        buttons: false
+                        });
+                }
+            }); 
+        }
 
         function timer()
         {
+            
             if (count <= 0)
             {
                 clearInterval(counter);
+                update_finish();  
                 return;
             }
             count--;

@@ -10,6 +10,9 @@
   /* margin-left: 10px; */
   float: left;
 }
+.no_aktif {
+  background-color: #157347 !important;
+}
 .next,
 .time {
   text-align: right;

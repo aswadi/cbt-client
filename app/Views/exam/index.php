@@ -48,9 +48,16 @@
         </ul>
         <br>
 
+        <?php if ($data_peserta[0]->selesai == 1) { ?>
+            <div  class="alert alert-danger info_ujian" role="alert">
+                Ujian telah selesai. <i>Anda menyisakan waktu </i><?= sprintf('%02d:%02d:%02d', $hours, $mins, $secs);?>
+            </div>
+        <?php } else { ?>
+        
         <a href="<?= base_url('exam/test');?>" class="btn btn-sm btn-success">Mulai Ujian</a>
 
         <a href="<?= base_url('exam/simulation');?>" class="btn btn-sm btn-secondary">Simulasi Ujian</a>
+        <?php } ?>
 
     </div>
 </div>

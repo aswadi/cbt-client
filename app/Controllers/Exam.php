@@ -31,8 +31,10 @@ class Exam extends BaseController
 		$session = session();
 		$data['data_peserta'] = $this->examModel->getUser($session->username);
 		$data['question_number'] = $this->examModel->getQuestinNumber($session->id_peserta);
+		$data['number_last'] = $this->examModel->getQuestinNumberLast($session->id_peserta);
 		$data['question_id'] = $this->examModel->getQuestinId($session->id_peserta);
 		$data['question'] = $this->examModel->getQuestin($no,$session->id_peserta);
+		$data['no_aktif'] = $no;
 		return view('exam/test', $data);
 	}
 
@@ -61,6 +63,23 @@ class Exam extends BaseController
                 echo json_encode(array("status" => false, "message" => "gagal update time", "data" => $register));
             }else{
                 echo json_encode(array("status" => true, "message" => "berhasil update time" , "data" => $register));
+			}
+        }
+	}
+
+	public function updateFinish()
+	{
+		// return view('exam/test', $data);
+		// helper(["url"]);
+		$session = session();
+        if ($this->request->getMethod() == "post") {
+
+			$register = $session->username;
+			$data = $this->examModel->updateFinish($register);
+            if (!$data) {
+                echo json_encode(array("status" => false, "message" => "Ujian Anda telah selesai..0", "data" => $register));
+            }else{
+                echo json_encode(array("status" => true, "message" => "Ujian Anda telah selesai.." , "data" => $register));
 			}
         }
 	}
