@@ -32,4 +32,11 @@ class AuthModel extends Model
                              ])
                     ->first();
     }
+    public function getDataTes($tesId)
+    {  
+        $builder = $this->db->table('data_tes'); 
+        $builder->select('judul,skorBenar,skorSalah,deskripsi,info');
+        $query   = $builder->getWhere(['id' => $tesId])->getResult(); 
+        return $query;
+    }
 }

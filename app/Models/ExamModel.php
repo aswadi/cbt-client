@@ -38,6 +38,7 @@ class ExamModel extends Model
         $query   = $builder->getWhere(['idPeserta' => $register])->getResult(); 
         return $query;
     }
+    
     public function getQuestin($noUrut, $idPeserta)
     {  
         $builder = $this->db->table('data_soal'); 
@@ -49,11 +50,28 @@ class ExamModel extends Model
         return $query;
     }
 
+    public function getDataTes($tesId)
+    {  
+        $builder = $this->db->table('data_tes'); 
+        $builder->select('judul,skorBenar,skorSalah,deskripsi,info');
+        $query   = $builder->getWhere(['id' => $tesId])->getResult(); 
+        return $query;
+    }
+
     public function updateTime($time, $register)
     {  
         $builder = $this->db->table('data_peserta'); 
         $builder->set('sisaWaktu', $time);
         $builder->where('kodeRegistrasi', $register);
+        return $builder->update(); 
+    }
+    public function updateAnswer($idPeserta, $noSOal, $idSoal, $jawaban)
+    {  
+        $builder = $this->db->table('tabel_jawaban_peserta'); 
+        $builder->set('jawaban', $jawaban);
+        $builder->where('idPeserta', $idPeserta);
+        $builder->where('noSOal', $noSOal);
+        $builder->where('idSoal', $idSoal);
         return $builder->update(); 
     }
     public function updateFinish($register)

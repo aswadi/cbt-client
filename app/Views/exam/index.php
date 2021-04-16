@@ -1,9 +1,10 @@
 <?= $this->extend('layout/template') ?>
 
 <?= $this->section('content') ?>
-<h3>Ujian berbasis komputer, UIN Raden Fatah Palembang</h3>
+<h3><?= $data_ujian[0]->judul;?></h3>
 <div  class="alert alert-success info_ujian" role="alert">
-    Info ! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Atque qui voluptatibus velit repellendus eaque! Quam id fuga ut voluptatum pariatur! Veniam maxime eveniet exercitationem iure, a fuga voluptates eligendi nulla!
+    
+    <?= $data_ujian[0]->deskripsi;?>
 </div>
 <div class="row">
     <div class="col-md-6">
@@ -15,7 +16,7 @@
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">Nama : <?= $data_peserta[0]->nama;?></li>
-            <li class="list-group-item">No tes : <?= $data_peserta[0]->kodeRegistrasi;?></li>
+            <li class="list-group-item">No tes / Kode Registrasi : <?= $data_peserta[0]->kodeRegistrasi;?></li>
             <li class="list-group-item">Tempat lahir : <?= $data_peserta[0]->tempatLahir;?></li>
             <li class="list-group-item">Tanggal lahir : <?= $data_peserta[0]->tanggalLahir;?></li>
         </ul>
@@ -25,20 +26,17 @@
         </div> -->
     </div>
        
-    
-
-
     </div>
     <div class="col-md-6">
         <?php 
-            // print_r($_SESSION);
+            print_r($_SESSION);
             $seconds = $data_peserta[0]->sisaWaktu;
             $hours = floor($seconds / 3600);
             $mins = floor($seconds / 60 % 60);
             $secs = floor($seconds % 60);
         ?>
         <div  class="alert alert-success info_ujian" role="alert">
-            Info ! Lorem ipsum dolor sit, amet consectetur adipisicing elit. A 
+            info ujian : <?= $data_ujian[0]->info;?> 
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">Sisa waktu : <?= sprintf('%02d:%02d:%02d', $hours, $mins, $secs);?></li>

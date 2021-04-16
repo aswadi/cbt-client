@@ -4,7 +4,7 @@
 
     
     <div class="header">
-        <h3>Ujian berbasis komputer, UIN Raden Fatah Palembang</h3>
+        <h3><?= $data_ujian[0]->judul;?></h3>
     </div>
 
 
@@ -23,34 +23,48 @@
                 <hr>
                 <div class="wrap_question_answer">
                     <div class="question_answer "  style="margin-bottom: 25px;">
-                        <div class="question">
-                        <?php
-                        // echo '<pre>';
-                        // print_r($question);
-                        // echo '<pre>';
-                        // echo '<pre>';
-                        // print_r($data_peserta);
-                        // echo '<pre>';
+                        <div class="wrap_question">
+                            <div class="question">
+                            <?php
+                            // echo '<pre>';
+                            // print_r($question);
+                            // echo '<pre>';
+                            // echo '<pre>';
+                            // print_r($data_peserta);
+                            // echo '<pre>';
 
-                        ?>
-                            <div class="text">
-                                <?= $question[0]->teks;?> 
+                            ?>
+                                <div class="text">
+                                    <?= $question[0]->teks;?> 
+                                </div>
+                                <div class="text-added">
+                                    <?= $question[0]->teksTambahan;?>   
+                                </div>  
+                                <hr>      
                             </div>
-                            <div class="text-added">
-                                <?= $question[0]->teksTambahan;?>   
-                            </div>        
+                            
                         </div>
-                        <hr>
+                        <!-- <div class="answer pb-2"> 
+                            <p>Jawaban</p>
+                            <input type="radio" data-answer="1" id="pilihan1" class="value_answer" name="answer" value="1">
+                            <label for="male"><?= $question[0]->pilihan1;?></label><br>
+                            <input type="radio" data-answer="2" id="pilihan2" class="value_answer" name="answer" value="2">
+                            <label for="female"><?= $question[0]->pilihan2;?></label><br>
+                            <input type="radio" data-answer="3" id="pilihan3" class="value_answer" name="answer" value="3">
+                            <label for="other"><?= $question[0]->pilihan3;?></label><br>
+                            <input type="radio" data-answer="4" id="pilihan4" class="value_answer" name="answer" value="4">
+                            <label for="other"><?= $question[0]->pilihan4;?></label>
+                        </div> -->
                         <div class="answer pb-2"> 
                             <p>Jawaban</p>
-                            <input type="radio" id="pilihan1" class="value_answer" name="answer" value="1">
-                            <label for="male"><?= $question[0]->pilihan1;?></label><br>
-                            <input type="radio" id="pilihan2" class="value_answer" name="answer" value="2">
-                            <label for="female"><?= $question[0]->pilihan2;?></label><br>
-                            <input type="radio" id="pilihan3" class="value_answer" name="answer" value="3">
-                            <label for="other"><?= $question[0]->pilihan3;?></label><br>
-                            <input type="radio" id="pilihan4" class="value_answer" name="answer" value="4">
-                            <label for="other"><?= $question[0]->pilihan4;?></label>
+                            <input type="radio" data-answer="1" id="pilihan1" class="value_answer" name="answer" value="1">
+                            <label for=""><span class="a_1"> <span class="a_1_in"> <?= $question[0]->pilihan1;?> </span></span></label><br>
+                            <input type="radio" data-answer="2" id="pilihan2" class="value_answer" name="answer" value="2">
+                            <label for=""><span class="a_2"> <span class="a_2_in"> <?= $question[0]->pilihan2;?></span></span></label><br>
+                            <input type="radio" data-answer="3" id="pilihan3" class="value_answer" name="answer" value="3">
+                            <label for=""><span class="a_3"> <span class="a_3_in"><?= $question[0]->pilihan3;?></span></span></label><br>
+                            <input type="radio" data-answer="4" id="pilihan4" class="value_answer" name="answer" value="4">
+                            <label for=""><span class="a_4"> <span class="a_4_in"><?= $question[0]->pilihan4;?></span></span></label>
                         </div>
                     </div>
                 </div>
@@ -81,7 +95,6 @@
                                 </div>
                                 </td>
                             </tr>
-                        
                         </table>     
                     </div>
                 </div>
@@ -131,7 +144,12 @@
             }
         });
         function loadquestion(no_load){
-            $( ".question_answer").remove();
+            $( ".question").remove();
+            $( ".a_1_in").remove();
+            $( ".a_2_in").remove();
+            $( ".a_3_in").remove();
+            $( ".a_4_in").remove();
+            // $( ".question_answer").remove();
             $( "#num_change").remove();
 
             if (no_load == 'next') {
@@ -173,21 +191,13 @@
                         var tambahan = '';
                     }
                     $(".no").append('<span id="num_change">'+no+'</span>');
-
-                    $(".wrap_question_answer").append('<div class="question_answer" style="margin-bottom: 25px;">'+
-                        '<div class="question">'+ 
-                            '<div class="text">'+data.question[0].teks+'</div><div class="text-added">'+tambahan+'</div>'+       
-                        '</div><hr>'+
-                        '<div class="answer pb-2">  <p>Jawaban</p>'+
-                            '<input type="radio" id="pilihan1" class="value_answer" name="answer" value="1">'+
-                           ' <label for="male"> '+data.question[0].pilihan1+'</label><br>'+
-                            '<input type="radio" id="pilihan2" class="value_answer" name="answer" value="2">'+
-                            ' <label for="female"> '+data.question[0].pilihan2+'</label><br>'+
-                            '<input type="radio" id="pilihan3" class="value_answer" name="answer" value="3">'+
-                            ' <label for="other"> '+data.question[0].pilihan3+'</label><br>'+
-                            '<input type="radio" id="pilihan4" class="value_answer" name="answer" value="4">'+
-                           ' <label for="other"> '+data.question[0].pilihan4+'</label>'+
-                        '</div> </div>');
+                    $(".wrap_question").append('<div class="question"> <div class="text">'+data.question[0].teks+'</div>'+
+                            '<div class="text-added">'+tambahan+'</div>'+       
+                        '<hr></div>');
+                    $(".a_1").append('<span class="a_1_in">'+data.question[0].pilihan1+'</span>');
+                    $(".a_2").append('<span class="a_2_in">'+data.question[0].pilihan2+'</span>');
+                    $(".a_3").append('<span class="a_3_in">'+data.question[0].pilihan3+'</span>');
+                    $(".a_4").append('<span class="a_4_in">'+data.question[0].pilihan4+'</span>');
                     // console.log(data.question);
                     // location.reload();
                 },
@@ -200,7 +210,7 @@
                         buttons: false
                         });
                 }
-            }); 
+            });
 
         }
 
@@ -233,12 +243,76 @@
             $( "."+no_change+"" ).addClass( "no_aktif" );
             loadquestion(no_change);
         });
+        $(".value_answer").click(function() { 
+            var answer = $(this).attr("data-answer") 
+            console.log(answer); 
+        });
+        
+
+        // $('#pilihan1').click(function(){
+        //     var answer = $("#pilihan1").val();
+        //     console.log(answer);
+        // });
+        // $('#pilihan2').click(function(){
+        //     var answer = $("#pilihan2").val();
+        //     console.log(answer);
+        // });
+        // $('#pilihan3').click(function(){
+        //     var answer = $("#pilihan3").val();
+        //     console.log(answer);
+        // });
+        // $('#pilihan4').click(function(){
+        //     var answer = $("#pilihan4").val();
+        //     console.log(answer);
+        // });
          
         var count = <?= $data_peserta[0]->sisaWaktu?>;
         // var count = 60;
 
         var counter = setInterval(timer, 1000); //10 will  run it every 100th of a second
         $.session.set('concheck', 'up'); 
+
+        function update_answer()
+        { 
+            $.ajax({
+                url: "<?= site_url('exam/updateAnswer') ?>",
+                type: "POST",
+                data: {time : count,
+                        },
+                dataType: "JSON",
+                success: function(data) { 
+                    if (data.status == true) { 
+                        swal({
+                        title: "Berhasil",
+                        text: data.message,
+                        icon: "success",
+                        buttons: false
+                        });
+                        setTimeout(function(){ 
+                            window.location.href = "/exam";
+                        }, 1000);
+                    }else{
+                        // update gagal
+                        swal({
+                        title: "Berhasil",
+                        text: data.message,
+                        icon: "success",
+                        buttons: false
+                        });
+                    }
+                    // location.reload();
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    $.session.set('concheck', 'break');
+                    swal({
+                        title: "Opps",
+                        text: "Opps server tidak terhubung, mencoba menghubungi server..",
+                        icon: "warning",
+                        buttons: false
+                        });
+                }
+            }); 
+        }
 
         function update_finish()
         { 

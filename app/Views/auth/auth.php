@@ -89,7 +89,7 @@
                 <div class="form-floating">
                 <!-- <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"> -->
                 <input id="no_tes" type="text" class="form-control" name="no_tes" value="2005060216" placeholder="Nomor tes">                                        
-                <label for="floatingInput">Nomor tes</label>
+                <label for="floatingInput">Nomor tes / Kode Registrasi</label>
                 </div>
                 <br>
                 <label for="">Tanggal lahir</label>

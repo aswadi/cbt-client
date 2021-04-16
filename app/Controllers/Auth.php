@@ -32,6 +32,11 @@ class Auth extends BaseController
 			$kodeValidasi = $this->request->getPost("tahun") .'-'.$this->request->getPost("bulan") .'-'.$this->request->getPost("tanggal");
 			$register = $this->request->getPost("username"); 
 			$data = $this->authModel->getUser($register);
+			$data_tes = $this->authModel->getDataTes($data['idTes']);
+			// echo '<pre>';
+			// 	print_r($data_tes[0]->skorSalah);
+			// echo '</pre>';
+			// die();
             if (!$data) {
                 echo json_encode(array("status" => false, "message" => "kode registrasi tidak terdaftar", "data" => $register));
             }else if(!$this->authModel->getUserValidate($register,$kodeValidasi)){
@@ -44,11 +49,12 @@ class Auth extends BaseController
 				$newdata = [
 					'username'  => $data['kodeRegistrasi'],
 					'id_peserta'  => $data['id'],
-					'log_in'	=> true
+					'id_tes'  => $data['idTes'],
+					'skor_benar'  => $data_tes[0]->skorBenar,
+					'skor_salah'  => $data_tes[0]->skorSalah,
+					'log_in'	=> true,
 				];
-				
 				$session->set($newdata);
-
                 echo json_encode(array("status" => true, "message" => "berhasil, mohon tunggu anda akan di arahkan ke laman ujian." , "data" => $register));
 			}
         }
