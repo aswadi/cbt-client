@@ -92,17 +92,21 @@ class Exam extends BaseController
 		// helper(["url"]);
 		$session = session();
         if ($this->request->getMethod() == "post") {
-			$idSoal = $this->request->getPost("idSoal");
-			$idPeserta = $session->username;
-			$noSOal = $this->request->getPost("noUrut");
-			$jawaban = $this->request->getPost("jawaban");
+			// $idSoal = $this->request->getPost("idSoal");
+			$idPeserta = $session->id_peserta;
+			$jawaban = $this->request->getPost("answer");
+			$noSoal = $this->request->getPost("Urut");
 			// $register = $session->username;
-			$data = $this->examModel->updateAnswer($idPeserta, $noSOal, $idSoal, $jawaban);
+			// print_r($idPeserta);
+			// print_r($jawaban);
+			// print_r($noSoal);
+			// die();
+			$data = $this->examModel->updateAnswer($idPeserta, $noSoal, $jawaban);
 			// $data = $this->examModel->updateSkor($id_peserta);
             if (!$data) {
-                echo json_encode(array("status" => false, "message" => "Ujian Anda telah selesai..0", "data" => $idPeserta));
+                echo json_encode(array("status" => false, "message" => "Gagal update jawaban", "data" => $data));
             }else{
-                echo json_encode(array("status" => true, "message" => "Ujian Anda telah selesai.." , "data" => $idPeserta));
+                echo json_encode(array("status" => true, "message" => "Update berhasil.." , "data" => $data));
 			}
         }
 	}

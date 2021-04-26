@@ -11,7 +11,15 @@
   float: left;
 }
 .no_aktif {
-  background-color: #157347 !important;
+  /* background-color: #157347 !important; */
+  background-color: orange !important;
+}
+.answered {
+  /* background-color: #157347 !important; */
+  background-color: green;
+}
+.gray {
+  background-color: gray;
 }
 .next,
 .time {
@@ -26,7 +34,7 @@
   clear: both;
 }
 .number {
-  background-color: gray;
+  /* background-color: gray; */
   padding: 4px 9px 4px 9px;
   margin-bottom: 9px;
   margin-right: 9px;

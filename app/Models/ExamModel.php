@@ -17,7 +17,7 @@ class ExamModel extends Model
     public function getQuestinNumber($register)
     {  
         $builder = $this->db->table('tabel_jawaban_peserta'); 
-        $builder->select('noUrut');
+        $builder->select('noUrut, jawaban');
         $query   = $builder->getWhere(['idPeserta' => $register])->getResult(); 
         return $query;
     }
@@ -42,7 +42,7 @@ class ExamModel extends Model
     public function getQuestin($noUrut, $idPeserta)
     {  
         $builder = $this->db->table('data_soal'); 
-        $builder->select('data_soal.*,tabel_jawaban_peserta.noUrut');
+        $builder->select('data_soal.*,tabel_jawaban_peserta.noUrut,tabel_jawaban_peserta.jawaban');
         $builder->join('tabel_jawaban_peserta', 'data_soal.id = tabel_jawaban_peserta.idSoal');
         $builder->where('tabel_jawaban_peserta.noUrut', $noUrut);
         $builder->where('tabel_jawaban_peserta.idPeserta', $idPeserta);
@@ -65,13 +65,12 @@ class ExamModel extends Model
         $builder->where('kodeRegistrasi', $register);
         return $builder->update(); 
     }
-    public function updateAnswer($idPeserta, $noSOal, $idSoal, $jawaban)
+    public function updateAnswer($idPeserta, $noSoal, $jawaban)
     {  
         $builder = $this->db->table('tabel_jawaban_peserta'); 
         $builder->set('jawaban', $jawaban);
         $builder->where('idPeserta', $idPeserta);
-        $builder->where('noSOal', $noSOal);
-        $builder->where('idSoal', $idSoal);
+        $builder->where('noUrut', $noSoal);
         return $builder->update(); 
     }
     public function updateFinish($register)

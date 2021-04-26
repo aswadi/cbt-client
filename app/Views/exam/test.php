@@ -28,7 +28,7 @@
                             <?php
                             // echo '<pre>';
                             // print_r($question);
-                            // echo '<pre>';
+                            // echo '</pre>';
                             // echo '<pre>';
                             // print_r($data_peserta);
                             // echo '<pre>';
@@ -44,27 +44,52 @@
                             </div>
                             
                         </div>
-                        <!-- <div class="answer pb-2"> 
-                            <p>Jawaban</p>
-                            <input type="radio" data-answer="1" id="pilihan1" class="value_answer" name="answer" value="1">
-                            <label for="male"><?= $question[0]->pilihan1;?></label><br>
-                            <input type="radio" data-answer="2" id="pilihan2" class="value_answer" name="answer" value="2">
-                            <label for="female"><?= $question[0]->pilihan2;?></label><br>
-                            <input type="radio" data-answer="3" id="pilihan3" class="value_answer" name="answer" value="3">
-                            <label for="other"><?= $question[0]->pilihan3;?></label><br>
-                            <input type="radio" data-answer="4" id="pilihan4" class="value_answer" name="answer" value="4">
-                            <label for="other"><?= $question[0]->pilihan4;?></label>
-                        </div> -->
-                        <div class="answer pb-2"> 
-                            <p>Jawaban</p>
-                            <input type="radio" data-answer="1" id="pilihan1" class="value_answer" name="answer" value="1">
-                            <label for=""><span class="a_1"> <span class="a_1_in"> <?= $question[0]->pilihan1;?> </span></span></label><br>
-                            <input type="radio" data-answer="2" id="pilihan2" class="value_answer" name="answer" value="2">
-                            <label for=""><span class="a_2"> <span class="a_2_in"> <?= $question[0]->pilihan2;?></span></span></label><br>
-                            <input type="radio" data-answer="3" id="pilihan3" class="value_answer" name="answer" value="3">
-                            <label for=""><span class="a_3"> <span class="a_3_in"><?= $question[0]->pilihan3;?></span></span></label><br>
-                            <input type="radio" data-answer="4" id="pilihan4" class="value_answer" name="answer" value="4">
-                            <label for=""><span class="a_4"> <span class="a_4_in"><?= $question[0]->pilihan4;?></span></span></label>
+                        <div class="xwa"> 
+                            <!-- <div class="answer pb-2"> 
+                                <p>Jawaban</p>
+                                <input type="radio" data-answer="1" id="pilihan1" class="value_answer" name="answer" value="1">
+                                <label for="male"> <?= $question[0]->pilihan1;?></label><br>
+                                <input type="radio" data-answer="2" id="pilihan2" class="value_answer" name="answer" value="2">
+                                <label for="female"> <?= $question[0]->pilihan2;?></label><br>
+                                <input type="radio" data-answer="3" id="pilihan3" class="value_answer" name="answer" value="3">
+                                <label for="other"> <?= $question[0]->pilihan3;?></label><br>
+                                <input type="radio" data-answer="4" id="pilihan4" class="value_answer" name="answer" value="4">
+                                <label for="other"> <?= $question[0]->pilihan4;?></label>
+                            </div> -->
+                        
+                            <div class="answer pb-2"> 
+                            <?php 
+                                if ($question[0]->jawaban == 1) {
+                                    $checked1 = 'checked';
+                                }else{
+                                    $checked1 = '';
+                                }
+                                if ($question[0]->jawaban == 2) {
+                                    $checked2 = 'checked';
+                                }else{
+                                    $checked2 = '';
+                                } 
+                                if ($question[0]->jawaban == 3) {
+                                    $checked3 = 'checked';
+                                }else{
+                                    $checked3 = '';
+                                } 
+                                if ($question[0]->jawaban == 4) {
+                                    $checked4 = 'checked';
+                                }else{
+                                    $checked4 = '';
+                                }
+                            ?>
+                                <p>Jawaban</p>
+                                <input  type="radio" <?= $checked1; ?> data-answer="1" id="pilihan1" class="value_answer" name="answer" value="1">
+                                <label for=""><span class="a_1"> <span class="a_1_in"> <?= $question[0]->pilihan1;?> </span></span></label><br>
+                                <input type="radio" <?= $checked2; ?> data-answer="2" id="pilihan2" class="value_answer" name="answer" value="2">
+                                <label for=""><span class="a_2"> <span class="a_2_in"> <?= $question[0]->pilihan2;?></span></span></label><br>
+                                <input type="radio"  <?= $checked3; ?> data-answer="3" id="pilihan3" class="value_answer" name="answer" value="3">
+                                <label for=""><span class="a_3"> <span class="a_3_in"><?= $question[0]->pilihan3;?></span></span></label><br>
+                                <input type="radio"  <?= $checked4; ?> data-answer="4" id="pilihan4" class="value_answer" name="answer" value="4">
+                                <label for=""><span class="a_4"> <span class="a_4_in"><?= $question[0]->pilihan4;?></span></span></label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -107,12 +132,18 @@
                     <span>DAFTAR SOAL </span>
                     <hr>
                     <div class="question_number">
-                    <?php foreach ($question_number as $key => $value) {
-                        
+                    <?php
+                    foreach ($question_number as $key => $value) {
+                        if ($value->jawaban != 0) {
+                            $green = 'style="background-color : green"';
+                        }else{
+                            $green = '';
+                        }
+
                         if ($value->noUrut == $no_aktif) { ?>
-                            <div class="number <?= $value->noUrut; ?> no_aktif" data-no="<?= $value->noUrut; ?>"><?= $value->noUrut; ?></div>   
+                            <div <?= $green; ?> class=" gray number <?= $value->noUrut; ?> no_aktif " data-no="<?= $value->noUrut; ?>"><?= $value->noUrut; ?></div>   
                         <?php }else {?>
-                        <div class="number <?= $value->noUrut; ?>" data-no="<?= $value->noUrut; ?>"><?= $value->noUrut; ?></div>     
+                        <div <?= $green; ?> class="gray number <?= $value->noUrut; ?>" data-no="<?= $value->noUrut; ?>"><?= $value->noUrut; ?></div>     
                     <?php } 
                     } ?> 
                     </div>
@@ -149,9 +180,16 @@
             $( ".a_2_in").remove();
             $( ".a_3_in").remove();
             $( ".a_4_in").remove();
+            // $( ".answer").remove();
+            var no_on = $( "#no_soal" ).val();
             // $( ".question_answer").remove();
             $( "#num_change").remove();
-
+            // $('input[name=answer]').attr('checked',false);
+            // $('#input[type="radio":checked]').checked = false;  
+            var ele = document.getElementsByName("answer");
+            for(var i=0;i<ele.length;i++)
+                ele[i].checked = false;
+            
             if (no_load == 'next') {
                 if (parseInt($( "#no_soal" ).val()) == <?= $number_last[0]->noUrut; ?>) {
                     var no = 1;
@@ -174,6 +212,7 @@
                 }
             }else{
                 var no = no_load; 
+                
             }
             
             $.ajax({
@@ -194,10 +233,34 @@
                     $(".wrap_question").append('<div class="question"> <div class="text">'+data.question[0].teks+'</div>'+
                             '<div class="text-added">'+tambahan+'</div>'+       
                         '<hr></div>');
+                    // console.log(data.question[0].jawaban);
+                    if (data.question[0].jawaban == 1) {
+                        document.getElementById("pilihan1").checked = true;
+                    }
+                    if (data.question[0].jawaban == 2) {
+                        document.getElementById("pilihan2").checked = true;
+                    }
+                    if (data.question[0].jawaban == 3) {
+                        document.getElementById("pilihan3").checked = true;
+                    }
+                    if (data.question[0].jawaban == 4) {
+                        document.getElementById("pilihan4").checked = true;
+                    }
                     $(".a_1").append('<span class="a_1_in">'+data.question[0].pilihan1+'</span>');
                     $(".a_2").append('<span class="a_2_in">'+data.question[0].pilihan2+'</span>');
                     $(".a_3").append('<span class="a_3_in">'+data.question[0].pilihan3+'</span>');
                     $(".a_4").append('<span class="a_4_in">'+data.question[0].pilihan4+'</span>');
+                    // $(".xwa").append('<div class="answer pb-2">'+ 
+                    //             '<p>Jawaban</p>'+
+                    //             '<input type="radio" data-answer="1" id="pilihan1" class="value_answer" name="answer" value="1">'+
+                    //             '<label for="male"> '+data.question[0].pilihan1+'</label><br>'+
+                    //             '<input type="radio" data-answer="2" id="pilihan2" class="value_answer" name="answer" value="2">'+
+                    //             '<label for="female"> '+data.question[0].pilihan2+'</label><br>'+
+                    //             '<input type="radio" data-answer="3" id="pilihan3" class="value_answer" name="answer" value="3">'+
+                    //             '<label for="other"> '+data.question[0].pilihan3+'</label><br>'+
+                    //             '<input type="radio" data-answer="4" id="pilihan4" class="value_answer" name="answer" value="4">'+
+                    //             '<label for="other"> '+data.question[0].pilihan4+'</label>'+
+                    //         '</div>');
                     // console.log(data.question);
                     // location.reload();
                 },
@@ -238,14 +301,22 @@
         });
 
         $(".number").click(function() { 
-            var no_change = $(this).attr("data-no") 
+            var no_change = $(this).attr("data-no");
             $( ".no_aktif" ).removeClass( "no_aktif");
+
             $( "."+no_change+"" ).addClass( "no_aktif" );
+            // $( "."+no_change+"" ).addClass("answered");
+
             loadquestion(no_change);
         });
         $(".value_answer").click(function() { 
-            var answer = $(this).attr("data-answer") 
-            console.log(answer); 
+            var answer = $(this).attr("data-answer");
+            var no  = parseInt($( "#no_soal" ).val());
+            $( "."+no+"" ).removeClass( "gray");
+
+            update_answer(answer, no);
+            // console.log(answer); 
+            // console.log(no); 
         });
         
 
@@ -272,31 +343,28 @@
         var counter = setInterval(timer, 1000); //10 will  run it every 100th of a second
         $.session.set('concheck', 'up'); 
 
-        function update_answer()
+        function update_answer(answer,no)
         { 
+            $( "."+no+"" ).addClass("answered");
+
             $.ajax({
                 url: "<?= site_url('exam/updateAnswer') ?>",
                 type: "POST",
-                data: {time : count,
+                data: {answer : answer,
+                       Urut : no, 
                         },
                 dataType: "JSON",
                 success: function(data) { 
                     if (data.status == true) { 
-                        swal({
-                        title: "Berhasil",
-                        text: data.message,
-                        icon: "success",
-                        buttons: false
-                        });
-                        setTimeout(function(){ 
-                            window.location.href = "/exam";
-                        }, 1000);
+                        if ($.session.get('concheck') == 'break') {
+                            swal.close();
+                        } 
                     }else{
                         // update gagal
                         swal({
-                        title: "Berhasil",
+                        title: "Opps",
                         text: data.message,
-                        icon: "success",
+                        icon: "warning",
                         buttons: false
                         });
                     }
@@ -411,6 +479,7 @@
             // document.getElementById("timer").innerHTML=count /100+ " secs"; 
             // document.getElementById("timer").innerHTML=count + " secs"; 
             document.getElementById("timer").innerHTML=hours +":"+ minutes +":"+ seconds; 
+            // $("#timer").innerHTML=hours +":"+ minutes +":"+ seconds; 
         }
     </script>
 
