@@ -42,7 +42,7 @@ class ExamModel extends Model
     public function getQuestin($noUrut, $idPeserta)
     {  
         $builder = $this->db->table('data_soal'); 
-        $builder->select('data_soal.*,tabel_jawaban_peserta.noUrut,tabel_jawaban_peserta.jawaban');
+        $builder->select('data_soal.*, data_soal.jawaban as kunci,tabel_jawaban_peserta.noUrut,tabel_jawaban_peserta.jawaban');
         $builder->join('tabel_jawaban_peserta', 'data_soal.id = tabel_jawaban_peserta.idSoal');
         $builder->where('tabel_jawaban_peserta.noUrut', $noUrut);
         $builder->where('tabel_jawaban_peserta.idPeserta', $idPeserta);
@@ -77,6 +77,20 @@ class ExamModel extends Model
     {  
         $builder = $this->db->table('data_peserta'); 
         $builder->set('selesai', 1);
+        $builder->where('kodeRegistrasi', $register);
+        return $builder->update(); 
+    }
+    public function updateScoreTrue($register,$benar)
+    {  
+        $builder = $this->db->table('data_peserta'); 
+        $builder->set('skor', 2);
+        $builder->where('kodeRegistrasi', $register);
+        return $builder->update(); 
+    }
+    public function updateScoreFalse($register,$salah)
+    {  
+        $builder = $this->db->table('data_peserta'); 
+        $builder->set('skor', 1);
         $builder->where('kodeRegistrasi', $register);
         return $builder->update(); 
     }

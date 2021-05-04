@@ -79,6 +79,7 @@
                                 }else{
                                     $checked4 = '';
                                 }
+                                $kuncisent = md5($question[0]->kunci);
                             ?>
                                 <p>Jawaban</p>
                                 <input  type="radio" <?= $checked1; ?> data-answer="1" id="pilihan1" class="value_answer" name="answer" value="1">
@@ -89,6 +90,7 @@
                                 <label for=""><span class="a_3"> <span class="a_3_in"><?= $question[0]->pilihan3;?></span></span></label><br>
                                 <input type="radio"  <?= $checked4; ?> data-answer="4" id="pilihan4" class="value_answer" name="answer" value="4">
                                 <label for=""><span class="a_4"> <span class="a_4_in"><?= $question[0]->pilihan4;?></span></span></label>
+                                <div id="xkey" ><input type="hidden" id="xkeyv" name="xkeyv" value="<?= md5($question[0]->kunci)?>"></div>
                             </div>
                         </div>
                     </div>
@@ -180,7 +182,7 @@
             $( ".a_2_in").remove();
             $( ".a_3_in").remove();
             $( ".a_4_in").remove();
-            // $( ".answer").remove();
+            $( "#xkeyv").remove();
             var no_on = $( "#no_soal" ).val();
             // $( ".question_answer").remove();
             $( "#num_change").remove();
@@ -246,10 +248,27 @@
                     if (data.question[0].jawaban == 4) {
                         document.getElementById("pilihan4").checked = true;
                     }
+                    var kunci = data.question[0].kunci;
+                    var valKunci = 'cfcd208495d565ef66e7dff9f98764da';
+                    if (kunci == 1) {
+                        valKunci = 'c4ca4238a0b923820dcc509a6f75849b';
+                    }else if(kunci == 2){
+                        valKunci = 'c81e728d9d4c2f636f067f89cc14862c';
+                    }else if(kunci == 3){
+                        valKunci == 'eccbc87e4b5ce2fe28308fd9f2a7baf3';
+                    }else if(kunci == 4){
+                        valKunci = 'a87ff679a2f3e71d9181a67b7542122c';
+                    }else{
+                        valKunci = 'cfcd208495d565ef66e7dff9f98764da';
+                    }
+                    console.log(valKunci);
+                    console.log(kunci);
+
                     $(".a_1").append('<span class="a_1_in">'+data.question[0].pilihan1+'</span>');
                     $(".a_2").append('<span class="a_2_in">'+data.question[0].pilihan2+'</span>');
                     $(".a_3").append('<span class="a_3_in">'+data.question[0].pilihan3+'</span>');
                     $(".a_4").append('<span class="a_4_in">'+data.question[0].pilihan4+'</span>');
+                    $("#xkey").append('<input type="hidden" id="xkeyv" name="xkeyv" value="'+valKunci+'">');
                     // $(".xwa").append('<div class="answer pb-2">'+ 
                     //             '<p>Jawaban</p>'+
                     //             '<input type="radio" data-answer="1" id="pilihan1" class="value_answer" name="answer" value="1">'+
@@ -312,9 +331,11 @@
         $(".value_answer").click(function() { 
             var answer = $(this).attr("data-answer");
             var no  = parseInt($( "#no_soal" ).val());
+            var xkey  = $( "#xkeyv" ).val();
             $( "."+no+"" ).removeClass( "gray");
+            
 
-            update_answer(answer, no);
+            update_answer(answer, no, xkey);
             // console.log(answer); 
             // console.log(no); 
         });
@@ -343,15 +364,18 @@
         var counter = setInterval(timer, 1000); //10 will  run it every 100th of a second
         $.session.set('concheck', 'up'); 
 
-        function update_answer(answer,no)
+        function update_answer(answer,no,xkey)
         { 
             $( "."+no+"" ).addClass("answered");
+            var keysent = String(xkey);
+            console.log(xkey);
 
             $.ajax({
                 url: "<?= site_url('exam/updateAnswer') ?>",
                 type: "POST",
                 data: {answer : answer,
                        Urut : no, 
+                       Xkey : keysent, 
                         },
                 dataType: "JSON",
                 success: function(data) { 
